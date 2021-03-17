@@ -1,120 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>addRecipeDialog</class>
- <widget class="QDialog" name="addRecipeDialog">
+ <class>addIngredientDialog</class>
+ <widget class="QDialog" name="addIngredientDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>370</width>
-    <height>424</height>
+    <width>341</width>
+    <height>182</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Add New Recipe</string>
+   <string>Add New Ingredient</string>
   </property>
-  <widget class="QWidget" name="formLayoutWidget">
+  <widget class="QWidget" name="formLayoutWidget_2">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>351</width>
-     <height>401</height>
+     <width>321</width>
+     <height>163</height>
     </rect>
    </property>
-   <layout class="QFormLayout" name="formLayout_2">
+   <layout class="QFormLayout" name="formLayout">
     <item row="0" column="0">
      <widget class="QLabel" name="label">
       <property name="text">
-       <string>   Recipe name</string>
+       <string>  Ingredient Name</string>
       </property>
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QLineEdit" name="recipeNameEdit">
+     <widget class="QLineEdit" name="ingredNameEdit">
       <property name="focusPolicy">
        <enum>Qt::StrongFocus</enum>
       </property>
      </widget>
     </item>
     <item row="1" column="0">
-     <widget class="QLabel" name="label_2">
+     <widget class="QLabel" name="label_3">
       <property name="text">
-       <string>   Recipe Instructions</string>
+       <string>  Measurement Unit</string>
       </property>
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QTextEdit" name="recipeInstrucEdit">
-      <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
+     <widget class="QLineEdit" name="measUnitEdit">
+      <property name="toolTip">
+       <string>e.g. ml, g, tsp, cups ...</string>
       </property>
      </widget>
     </item>
     <item row="2" column="0">
      <widget class="QLabel" name="label_4">
       <property name="text">
-       <string>   Ingredients</string>
+       <string>  Used Amount</string>
       </property>
      </widget>
     </item>
     <item row="2" column="1">
-     <widget class="QListWidget" name="recipeIngredList">
-      <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QPushButton" name="addIngredBtn">
-        <property name="focusPolicy">
-         <enum>Qt::StrongFocus</enum>
-        </property>
+       <widget class="QDoubleSpinBox" name="usedAmountSpin">
         <property name="toolTip">
-         <string>Open Add Recipe Dialog</string>
-        </property>
-        <property name="text">
-         <string>Add Ingredient</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="deleteIngredBtn">
-        <property name="focusPolicy">
-         <enum>Qt::StrongFocus</enum>
-        </property>
-        <property name="toolTip">
-         <string>Delete the selected ingredient</string>
-        </property>
-        <property name="text">
-         <string>Delete Ingredient</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item row="4" column="0">
-     <widget class="QLabel" name="label_3">
-      <property name="text">
-       <string>   Servings</string>
-      </property>
-     </widget>
-    </item>
-    <item row="4" column="1">
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item>
-       <widget class="QSpinBox" name="recipeServingsSpin">
-        <property name="focusPolicy">
-         <enum>Qt::StrongFocus</enum>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>Optional</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Multiples or precise amounts relative to the specified measurment unit. &lt;/p&gt;&lt;p&gt;E.g. 1.0, 1.5, 0.5, 100, 28 ...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
        </widget>
       </item>
@@ -133,28 +82,26 @@
       </item>
      </layout>
     </item>
-    <item row="5" column="0" colspan="2">
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>  Packaged Price</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+       <widget class="QDoubleSpinBox" name="packPriceSpin">
+        <property name="toolTip">
+         <string>The purchased product price</string>
         </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
+       </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="recipeSubmitBtn">
-        <property name="focusPolicy">
-         <enum>Qt::StrongFocus</enum>
-        </property>
+       <widget class="QLabel" name="label_7">
         <property name="text">
-         <string>Submit</string>
+         <string>Optional</string>
         </property>
        </widget>
       </item>
@@ -171,16 +118,68 @@
         </property>
        </spacer>
       </item>
+     </layout>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_6">
+      <property name="text">
+       <string>  Packaged Amount</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
       <item>
-       <widget class="QPushButton" name="recipeCancelBtn">
+       <widget class="QDoubleSpinBox" name="packAmountSpin">
+        <property name="toolTip">
+         <string>The purchased product amount</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_8">
+        <property name="text">
+         <string>Optional</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item row="5" column="0" colspan="2">
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <spacer name="horizontalSpacer_5">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="ingredSubmitBtn">
         <property name="focusPolicy">
          <enum>Qt::StrongFocus</enum>
         </property>
         <property name="text">
-         <string>Cancel</string>
-        </property>
-        <property name="default">
-         <bool>true</bool>
+         <string>Submit</string>
         </property>
        </widget>
       </item>
@@ -197,36 +196,37 @@
         </property>
        </spacer>
       </item>
+      <item>
+       <widget class="QPushButton" name="ingredCancelBtn">
+        <property name="focusPolicy">
+         <enum>Qt::StrongFocus</enum>
+        </property>
+        <property name="text">
+         <string>Cancel</string>
+        </property>
+        <property name="default">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_6">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
      </layout>
     </item>
    </layout>
   </widget>
  </widget>
- <tabstops>
-  <tabstop>recipeCancelBtn</tabstop>
-  <tabstop>recipeSubmitBtn</tabstop>
-  <tabstop>recipeServingsSpin</tabstop>
-  <tabstop>recipeInstrucEdit</tabstop>
-  <tabstop>recipeIngredList</tabstop>
-  <tabstop>recipeNameEdit</tabstop>
- </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>deleteIngredBtn</sender>
-   <signal>clicked()</signal>
-   <receiver>recipeIngredList</receiver>
-   <slot>clearSelection()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>252</x>
-     <y>337</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>255</x>
-     <y>269</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

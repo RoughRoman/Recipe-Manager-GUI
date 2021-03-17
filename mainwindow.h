@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <RecipeManager.hpp>
+#include <addrecipedialog.h>
+#include <addingredientdialog.h> // just about to connect recipe add ingredient to this dialog.
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -23,7 +26,8 @@ private:
 
 
 private slots:
-    //void on_addRecipeBtn_clicked();
+    void on_addRecipeBtn_clicked();
     void on_loadRecipeAction_clicked();
+
 };
 #endif // MAINWINDOW_H

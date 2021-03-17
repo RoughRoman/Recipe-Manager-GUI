@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -10,10 +11,11 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 
-//void MainWindow::on_addRecipeBtn_clicked()
-//{
-
-//}
+void MainWindow::on_addRecipeBtn_clicked()
+{
+    addRecipeDialog recipeDialog;
+    recipeDialog.exec();
+}
 
 void MainWindow::on_loadRecipeAction_clicked()
 {

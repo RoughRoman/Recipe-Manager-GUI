@@ -1,5 +1,5 @@
-#ifndef ADDRECIPEDIALOG_HPP
-#define ADDRECIPEDIALOG_HPP
+#ifndef ADDRECIPEDIALOG_H
+#define ADDRECIPEDIALOG_H
 
 #include <QDialog>
 
@@ -17,6 +17,12 @@ public:
 
 private:
     Ui::addRecipeDialog *ui;
+
+private slots:
+    void on_recipeSubmitBtn_clicked();
+    void on_recipeCancelBtn_clicked();
+    void on_addIngredBtn_clicked();
+    void on_deleteIngredBtn_clicked();
 };
 
-#endif // ADDRECIPEDIALOG_HPP
+#endif // ADDRECIPEDIALOG_H

@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     RecipeManager.cpp \
+    addingredientdialog.cpp \
     addrecipedialog.cpp \
     ingredient.cpp \
     main.cpp \
@@ -18,12 +19,14 @@ SOURCES += \
 
 HEADERS += \
     RecipeManager.hpp \
-    addrecipedialog.hpp \
+    addingredientdialog.h \
+    addrecipedialog.h \
     ingredient.hpp \
     mainwindow.h \
     recipe.hpp
 
 FORMS += \
+    addingredientdialog.ui \
     addrecipedialog.ui \
     mainwindow.ui
 
