@@ -207,60 +207,62 @@ void RecipeManager::loadFromFile()
     {
         return;
     }
-
-    // get all of the lines from the file and store in local vector
-    while((getline (infile, line)))
+    else
     {
-        lineVec.push_back(line);
+        // get all of the lines from the file and store in local vector
+        while((getline (infile, line)))
+        {
+            lineVec.push_back(line);
+        }
+        infile.close();
+
+        // time to process each line into a recipe object
+        for (int i; i < lineVec.size(); i++)
+        {
+            // get individual line
+            line = lineVec[i];
+
+            /*          How i am going to do this.
+             * find the position of the first occurence of {
+             * everything until next { we store
+             * delete { and the data until next {
+             * start again.
+             * after first 3 runs create a recipe with the data
+             * then repeat process for ingredients
+             */
+
+            for (int j; j < 3; j++)
+            {
+                // add the inbetween data to the vector
+                recipeVec.push_back(line.substr(0,line.find('{')));
+
+                // delete everything including delimiter
+                line.erase(0, line.find('{') + 1);
+            }
+            // create recipe from vector data
+            addRecipe(recipeVec[0], recipeVec[1], stoi(recipeVec[2]));
+
+            // next ingredients
+            while (line[0] != '\n')
+            {
+                // add the inbetween data to the vector
+                ingredVec.push_back(line.substr(0, line.find('{')));
+
+                //erase
+                line.erase(0,line.find('{')+1);
+            }
+
+            // got all the ingredients now we add them as to the recipe we have just made
+            for (int k; k < ingredVec.size(); k = k+5)
+            {
+                recipeList[i].addFullIngredient(ingredVec[k], ingredVec[k+1],
+                                                stof(ingredVec[k+2]), stof(ingredVec[k+3]),
+                                                stof(ingredVec[k+4]));
+            }
+
+        }
+        return;
     }
-    infile.close();
-
-    // time to process each line into a recipe object
-    for (int i; i < lineVec.size(); i++)
-    {
-        // get individual line
-        line = lineVec[i];
-
-        /*          How i am going to do this.
-         * find the position of the first occurence of {
-         * everything until next { we store
-         * delete { and the data until next {
-         * start again.
-         * after first 3 runs create a recipe with the data
-         * then repeat process for ingredients
-         */
-
-        for (int j; j < 3; j++)
-        {
-            // add the inbetween data to the vector
-            recipeVec.push_back(line.substr(0,line.find('{')));
-
-            // delete everything including delimiter
-            line.erase(0, line.find('{') + 1);
-        }
-        // create recipe from vector data
-        addRecipe(recipeVec[0], recipeVec[1], stoi(recipeVec[2]));
-
-        // next ingredients
-        while (line[0] != '\n')
-        {
-            // add the inbetween data to the vector
-            ingredVec.push_back(line.substr(0, line.find('{')));
-
-            //erase
-            line.erase(0,line.find('{')+1);
-        }
-
-        // got all the ingredients now we add them as to the recipe we have just made
-        for (int k; k < ingredVec.size(); k = k+5)
-        {
-            recipeList[i].addFullIngredient(ingredVec[k], ingredVec[k+1],
-                                            stof(ingredVec[k+2]), stof(ingredVec[k+3]),
-                                            stof(ingredVec[k+4]));
-        }
-
-    }
-    return;
 }
 
 // utilities
