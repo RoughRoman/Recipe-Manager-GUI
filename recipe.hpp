@@ -4,38 +4,38 @@
 
 
 #include<iostream>
-#include<string>
+#include<QString>
 #include "ingredient.hpp"
 #include<vector>
 class recipe
 {
 private:
-    string recipeName, instructions;
+    QString recipeName, instructions;
     int ingredientNum, servings;
     float recipeCost;
 public:
     vector<ingredient> ingredientList;
      // Constructors
      recipe();
-     recipe(string name, string instruc, int servs);
+     recipe(QString name, QString instruc, int servs);
 
      // General setters
-     void setRecipeName(string name);
-     void setInstructions(string instruc);
+     void setRecipeName(QString name);
+     void setInstructions(QString instruc);
      //void setIngredientNum(int num);  #maybe not uses
      void setServings(int servs);
      //void setRecipeCost(float cost);    #maybe not uses
 
      // General Getters
-     string getRecipeName();
-     string getInstructions();
+     QString getRecipeName();
+     QString getInstructions();
      int getIngredientNum();
      int getServings();
      float getRecipeCost();
 
      // Vector Manipulation
      void addEmptyIngredient();
-     void addFullIngredient(string n, string unit, float usedamount,
+     void addFullIngredient(QString n, QString unit, float usedamount,
                float packprice = 0.0, float packamount = 0.0);
 
      void removeIngredient(int IngredientPosition);

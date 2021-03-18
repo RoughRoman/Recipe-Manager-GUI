@@ -3,7 +3,7 @@
 
 
 // interface for ingredient class
-#include <string>
+#include <QString>
 #include <iostream>
 
 using namespace std;
@@ -11,8 +11,8 @@ class ingredient
 {
 private:
     // Data
-    string name;
-    string measurementUnit;
+    QString name;
+    QString measurementUnit;
 
     float usedAmount;
 
@@ -24,20 +24,20 @@ public:
     // default
     ingredient();
     // for parameterized constructor. If price isnt wanted then leave both optional paramters empty
-    ingredient(string n, string unit, float usedamount,
+    ingredient(QString n, QString unit, float usedamount,
                float packprice = 0.0, float packamount = 0.0);
 
     // general getters
-    string getName() const;
-    string getMeasurementUnit() const;
+    QString getName() const;
+    QString getMeasurementUnit() const;
     float getUsedAmount() const;
     float getPackagePrice() const;
     float getPackageAmount() const;
     float getUnitPrice() const;
 
     // general setters
-    void setName(string  n);
-    void setMeasurmentUnit(string unit);
+    void setName(QString  n);
+    void setMeasurmentUnit(QString unit);
     void setUsedAmount(float amount);
     void setPackagePrice(float price);
     void setPackageAmount(float pAmount);

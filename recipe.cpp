@@ -29,7 +29,7 @@ recipe::recipe()
     recipeCost = 0.0;
 }
 
-recipe::recipe(string name, string instruc, int servs)
+recipe::recipe(QString name, QString instruc, int servs)
 {
     recipeName = name;
     instructions = instruc;
@@ -40,12 +40,12 @@ recipe::recipe(string name, string instruc, int servs)
 }
 
 // General setters
-void recipe::setRecipeName(string name)
+void recipe::setRecipeName(QString name)
 {
     recipeName = name;
 }
 
-void recipe::setInstructions(string instruc)
+void recipe::setInstructions(QString instruc)
 {
     instructions = instruc;
 }
@@ -65,12 +65,12 @@ void recipe::setServings(int servs)
 
 
 // General Getters
-string recipe::getRecipeName()
+QString recipe::getRecipeName()
 {
     return recipeName;
 }
 
-string recipe::getInstructions()
+QString recipe::getInstructions()
 {
     return instructions;
 }
@@ -97,7 +97,7 @@ void recipe::addEmptyIngredient()
     ingredientList.push_back(ingredient());
 }
 
-void recipe::addFullIngredient(string n, string unit, float usedamount, float packprice, float packamount)
+void recipe::addFullIngredient(QString n, QString unit, float usedamount, float packprice, float packamount)
 {// creates an ingredient object with parameter values and stores it in ingredient list
     ingredientList.push_back(ingredient(n, unit, usedamount, packprice, packamount));
 }

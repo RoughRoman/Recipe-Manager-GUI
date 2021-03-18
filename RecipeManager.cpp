@@ -1,39 +1,7 @@
-// program to actually manage,contain and organize the recipe objects
-// in the console.
-
-// need to make a findRecipe function
-
+/*                          WARNING WARNING
+ * BIOHAZARD IN THE FILE I/O SECTIONS KEEPOUT MAJOR ISSUES FROM QSTRING USE.
+ */
 #include "RecipeManager.hpp"
-
-void pause()
-    {// pause display and return
-        string dummyinput = " ";
-        cout<< "Press enter to return to the main menu."<<endl;
-        getline(cin,dummyinput);
-        return;
-    }
-
-int intInput(string message = "", int lowerBound = 0, int upperBound = 99)
-{// basic integer input sanitizer
-  string input;
-  while (true)
-  {
-      cout<< message<<endl;
-      cout<<"->";
-      getline(cin, input);
-      int num = stoi(input);
-
-      if (  num < lowerBound || num > upperBound)
-      {
-          cout<< "Invalid Input";
-          continue;
-      }
-      else
-      {
-         return num;
-      }
-  }
-}
 
 using namespace std;
 
@@ -41,49 +9,18 @@ RecipeManager::RecipeManager()
 {
 
 }
-// display functions
-void RecipeManager::displayRecipe(string recipeName)
-{
-    // check if recipeList is empty
-    if (recipeList.empty())
-    {
-        return;
-    }
-
-    // find recipe
-    int recipePosition = findRecipe(recipeName);
-
-
-
-
-    //get recipe data
-    string name = recipeList[recipePosition].getRecipeName();
-    string instructions = recipeList[recipePosition].getInstructions();
-    int ingredientNum = recipeList[recipePosition].getIngredientNum();
-    int servings = recipeList[recipePosition].getServings();
-    float cost = recipeList[recipePosition].getRecipeCost();
-
-    // display recipe data
-    cout<< "Recipe :"<< name<< endl;
-    cout<< "Servings :"<< servings<<endl;
-    cout<< "Instructions\n"<< instructions<< endl;
-    cout<< ingredientNum<<" Ingredients"<< endl;
-
-    for (int i = 0; i < recipeList[recipePosition].ingredientList.size(); i++)
-    {
-        cout<< recipeList[recipePosition].ingredientList[i];
-    }
-    cout<< "Cost to make :"<< cost<<"|  Cost per serving: "<<cost/servings<<endl;
-
-    return;
-}
 
 // recipe functions
-void RecipeManager::addRecipe(string recipeName, string instruc, int serves)
+void RecipeManager::addRecipe(QString recipeName, QString instruc, int serves)
 {
     recipeList.push_back(recipe(recipeName, instruc, serves));
 }
-bool RecipeManager::deleteRecipe(string recipeName)
+
+void RecipeManager::addRecipe(recipe tempRecipe)
+{
+    recipeList.push_back(tempRecipe);
+}
+bool RecipeManager::deleteRecipe(QString recipeName)
 {
     int recipeLocation = findRecipe(recipeName);
 
@@ -97,7 +34,7 @@ bool RecipeManager::deleteRecipe(string recipeName)
 }
 
 // print to textfile
-void RecipeManager::printToText(string recipeName)
+void RecipeManager::printToText(QString recipeName)
 {
     // check if empty
     if (recipeList.empty())
@@ -114,19 +51,19 @@ void RecipeManager::printToText(string recipeName)
     }
 
     // get recipe data
-    string name = recipeList[recipePosition].getRecipeName();
-    string instructions = recipeList[recipePosition].getInstructions();
+    QString name = recipeList[recipePosition].getRecipeName();
+    QString instructions = recipeList[recipePosition].getInstructions();
     int ingredientNum = recipeList[recipePosition].getIngredientNum();
     int servings = recipeList[recipePosition].getServings();
     float cost = recipeList[recipePosition].getRecipeCost();
 
     // create file named recipeName
     ofstream outfile;
-    outfile.open(recipeName);
+    outfile.open(recipeName.toStdString());
 
     // write data to file
     outfile<< "#########################################"<<endl;
-    outfile<< name<<endl<< instructions<<endl<< ingredientNum<<endl<< servings<<endl<<cost;
+    outfile<< name.toStdString()<<endl<< instructions.toStdString()<<endl<< ingredientNum<<endl<< servings<<endl<<cost;
 
 
     // file stream
@@ -154,16 +91,16 @@ void RecipeManager::saveToFile()
     for (int i; i < recipeList.size(); i++)
     {
         // print recipe data
-        outfile<< recipeList[i].getRecipeName()<< "{";
-        outfile<< recipeList[i].getInstructions()<< "{";
+        outfile<< recipeList[i].getRecipeName().toStdString()<< "{";
+        outfile<< recipeList[i].getInstructions().toStdString()<< "{";
         outfile<<recipeList[i].getServings()<< "{";
 
         // start printing ingredients
         for (int j; j < recipeList[i].ingredientList.size(); j++)
         {// holy fuck. The guy who has to write the deserialization part is fucked
 
-            outfile<< recipeList[i].ingredientList[j].getName()<< "{";
-            outfile<< recipeList[i].ingredientList[j].getMeasurementUnit()<< "{";
+            outfile<< recipeList[i].ingredientList[j].getName().toStdString()<< "{";
+            outfile<< recipeList[i].ingredientList[j].getMeasurementUnit().toStdString()<< "{";
             outfile<< recipeList[i].ingredientList[j].getUsedAmount()<< "{";
             outfile<< recipeList[i].ingredientList[j].getPackagePrice()<< "{";
             outfile<< recipeList[i].ingredientList[j].getPackageAmount()<< "{";
@@ -193,6 +130,9 @@ void RecipeManager::loadFromFile()
     // for recipe data
     vector<string> recipeVec;
     vector<string> ingredVec;
+
+    QString name;
+    QString instruct;
 
 
     // for file processing
@@ -240,7 +180,10 @@ void RecipeManager::loadFromFile()
                 line.erase(0, line.find('{') + 1);
             }
             // create recipe from vector data
-            addRecipe(recipeVec[0], recipeVec[1], stoi(recipeVec[2]));
+            //QString name = fromStdString(recipeVec[0]);
+            //QString instruct = fromStdString(recipeVec[1]);
+
+            addRecipe(name, instruct, stoi(recipeVec[2]));
 
             // next ingredients
             while (line[0] != '\n')
@@ -255,9 +198,9 @@ void RecipeManager::loadFromFile()
             // got all the ingredients now we add them as to the recipe we have just made
             for (int k; k < ingredVec.size(); k = k+5)
             {
-                recipeList[i].addFullIngredient(ingredVec[k], ingredVec[k+1],
-                                                stof(ingredVec[k+2]), stof(ingredVec[k+3]),
-                                                stof(ingredVec[k+4]));
+                //recipeList[i].addFullIngredient(ingredVec[k], ingredVec[k+1],
+                                                //stof(ingredVec[k+2]), stof(ingredVec[k+3]),
+                                              //  stof(ingredVec[k+4]));
             }
 
         }
@@ -266,7 +209,7 @@ void RecipeManager::loadFromFile()
 }
 
 // utilities
-int RecipeManager::findRecipe(string name)
+int RecipeManager::findRecipe(QString name)
 {
     // find recipe by name
     for (int i = 0; i < recipeList.size(); i++)

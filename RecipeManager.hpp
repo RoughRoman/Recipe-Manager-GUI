@@ -12,7 +12,7 @@
 
 #include <vector>
 #include <iostream>
-#include <string>
+#include <QString>
 #include <fstream>
 #include "recipe.hpp"
 
@@ -20,19 +20,19 @@
 class RecipeManager
 {
 private:
-    vector<recipe> recipeList;
+
 
 public:
+    vector<recipe> recipeList;
     RecipeManager();
-    // display functions
-    void displayRecipe(string recipeName);
 
     // recipe functions
-    void addRecipe(string recipeName, string instruc, int serves);
-    bool deleteRecipe(string recipeName);
+    void addRecipe(QString recipeName, QString instruc, int serves);
+    void addRecipe(recipe tempRecipe);
+    bool deleteRecipe(QString recipeName);
 
     // print to textfile
-    void printToText(string recipeName);
+    void printToText(QString recipeName);
 
     // Save all recipes to dat file
     void saveToFile();
@@ -41,7 +41,7 @@ public:
     void loadFromFile();
 
     // utility functions
-    int findRecipe(string name);
+    int findRecipe(QString name);
     bool is_empty(std::ifstream& pFile);
 
 };

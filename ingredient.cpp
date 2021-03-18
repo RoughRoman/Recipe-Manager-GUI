@@ -14,7 +14,7 @@
 #Changelog#
     28/02/2021- Declared class/default and parameter constructors/member variables.
                 Implemented getters. Poorly implemented setters.- Matty
-    01/03/2021- Added namespace std for string usage. Bug fixes; dont program while high.
+    01/03/2021- Added namespace std for QString usage. Bug fixes; dont program while high.
     02/03/2021- Implemented constructors, Data checking and defaulting, header file made.
 
 */
@@ -32,7 +32,7 @@ ingredient::ingredient()
     packageAmount = 0.0;
 }
 
-ingredient::ingredient(string n, string unit, float usedamount,
+ingredient::ingredient(QString n, QString unit, float usedamount,
            float packprice, float packamount)
 {// constructor with data for initialization
     // data check with default
@@ -55,12 +55,12 @@ ingredient::ingredient(string n, string unit, float usedamount,
 
 }
 
-string ingredient::getName()const
+QString ingredient::getName()const
 {//  returns name
     return name;
 }
 
-string ingredient::getMeasurementUnit()const
+QString ingredient::getMeasurementUnit()const
 {// returns measurement unit
     return measurementUnit;
 }
@@ -85,13 +85,13 @@ float ingredient::getUnitPrice()const
     return((usedAmount / packageAmount) * packagePrice);
 }
 
-void ingredient::setName(string  n)
+void ingredient::setName(QString  n)
 {// sets name
     // dont need data checking as who cares if they name it something stupid
     name = n;
 }
 
-void ingredient::setMeasurmentUnit(string unit)
+void ingredient::setMeasurmentUnit(QString unit)
 {// sets measurement unit
     // dont need data checking as who cares if they name it something stupid
     measurementUnit = unit;
@@ -124,9 +124,3 @@ void ingredient::setPackageAmount(float pAmount)
     packageAmount = pAmount;
 }
 
-ostream& operator << (ostream& outs, const ingredient& ing)
-{
-    outs<< ing.getName()<<"\n";
-    outs<< ing.getUsedAmount()<<" "<<ing.getMeasurementUnit()<<"\n";
-    return outs;
-}

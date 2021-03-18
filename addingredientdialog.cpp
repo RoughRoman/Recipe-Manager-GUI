@@ -7,6 +7,25 @@ addIngredientDialog::addIngredientDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 }
+void addIngredientDialog::on_ingredSubmitBtn_clicked()
+{
+    tempIngredient.setName(ui->ingredNameEdit->text());
+    tempIngredient.setMeasurmentUnit(ui->measUnitEdit->text());
+    tempIngredient.setUsedAmount(ui->usedAmountSpin->value());
+    tempIngredient.setPackageAmount(ui->packAmountSpin->value());
+    tempIngredient.setPackagePrice(ui->packPriceSpin->value());
+    accept();
+}
+
+ingredient addIngredientDialog::getIngredient()
+{
+    return tempIngredient;
+}
+
+void addIngredientDialog::on_ingredCancelBtn_clicked()
+{
+    reject();
+}
 
 addIngredientDialog::~addIngredientDialog()
 {
