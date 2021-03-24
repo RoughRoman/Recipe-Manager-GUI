@@ -5,6 +5,8 @@
 #include <RecipeManager.hpp>
 #include <addrecipedialog.h>
 #include <addingredientdialog.h>
+#include <messagedialog.h>
+#include<choicedialog.h>
 
 
 QT_BEGIN_NAMESPACE
@@ -26,9 +28,19 @@ private:
 
 
 private slots:
+    // buttons
     void on_addRecipeBtn_clicked();
-    void on_loadRecipeAction_clicked();
-    void on_recipeListWgt_currentRowChanged();
+    void on_deleteRecipeBtn_clicked();
+    void on_editRecipeBtn_clicked();
+
+    // actions
+    void on_loadRecipeAction_triggered();
+    void on_saveRecipeListAction_triggered();
+    void on_exitAction_triggered();
+    void on_deleteRecipeListAction_triggered();
+
+    // list widget
+    void on_recipeListWgt_itemClicked();
 
 };
 #endif // MAINWINDOW_H

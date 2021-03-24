@@ -55,34 +55,42 @@ ingredient::ingredient(QString n, QString unit, float usedamount,
 
 }
 
-QString ingredient::getName()const
+QString ingredient::getName()
 {//  returns name
     return name;
 }
 
-QString ingredient::getMeasurementUnit()const
+QString ingredient::getMeasurementUnit()
 {// returns measurement unit
     return measurementUnit;
 }
 
-float ingredient::getUsedAmount()const
+float ingredient::getUsedAmount()
 {// returns used amountt
     return usedAmount;
 }
 
-float ingredient::getPackagePrice()const
+float ingredient::getPackagePrice()
 {// returns package price
     return usedAmount;
 }
 
-float ingredient::getPackageAmount()const
+float ingredient::getPackageAmount()
 {// returns package amount
     return packageAmount;
 }
 
-float ingredient::getUnitPrice()const
+float ingredient::getUnitPrice()
 {// price is usedamount/packedamount * packed price.
-    return((usedAmount / packageAmount) * packagePrice);
+    if (packagePrice == 0.0)
+    {
+        return 0.0;
+    }
+    else
+    {
+        return((usedAmount / packageAmount) * packagePrice);
+    }
+
 }
 
 void ingredient::setName(QString  n)

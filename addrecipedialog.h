@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <addingredientdialog.h>
 #include <recipe.hpp>
+#include <messagedialog.h>
 
 namespace Ui {
 class addRecipeDialog;
@@ -17,6 +18,11 @@ public:
     explicit addRecipeDialog(QWidget *parent = nullptr);
     ~addRecipeDialog();
     recipe getRecipe();
+    void setName(QString name);
+    void setInstructions(QString instruc);
+    void setServings(int servs);
+
+    void setIngredients(vector<ingredient> ingredientVec);
 
 private:
     Ui::addRecipeDialog *ui;

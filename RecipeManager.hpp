@@ -30,6 +30,9 @@ public:
     void addRecipe(QString recipeName, QString instruc, int serves);
     void addRecipe(recipe tempRecipe);
     bool deleteRecipe(QString recipeName);
+    void deleteRecipe(int recipePos);
+    void replaceRecipe(recipe r1, int recipePos);
+    void deleteAllRecipes();
 
     // print to textfile
     void printToText(QString recipeName);

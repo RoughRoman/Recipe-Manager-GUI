@@ -12,25 +12,34 @@ SOURCES += \
     RecipeManager.cpp \
     addingredientdialog.cpp \
     addrecipedialog.cpp \
+    choicedialog.cpp \
     ingredient.cpp \
     main.cpp \
     mainwindow.cpp \
+    messagedialog.cpp \
     recipe.cpp
 
 HEADERS += \
     RecipeManager.hpp \
     addingredientdialog.h \
     addrecipedialog.h \
+    choicedialog.h \
     ingredient.hpp \
     mainwindow.h \
+    messagedialog.h \
     recipe.hpp
 
 FORMS += \
     addingredientdialog.ui \
     addrecipedialog.ui \
-    mainwindow.ui
+    choicedialog.ui \
+    mainwindow.ui \
+    messagedialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    Notes

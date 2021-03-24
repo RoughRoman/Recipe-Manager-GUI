@@ -33,6 +33,21 @@ bool RecipeManager::deleteRecipe(QString recipeName)
     return true;    // successfully found and deleted recipe
 }
 
+void RecipeManager::deleteRecipe(int recipePos)
+{
+     recipeList.erase(recipeList.begin() + recipePos);
+}
+
+void RecipeManager::replaceRecipe(recipe r1, int recipePos)
+{
+    recipeList[recipePos] = r1;
+}
+
+void  RecipeManager::deleteAllRecipes()
+{
+    recipeList.clear();
+}
+
 // print to textfile
 void RecipeManager::printToText(QString recipeName)
 {

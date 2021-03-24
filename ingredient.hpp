@@ -16,8 +16,8 @@ private:
 
     float usedAmount;
 
-    float packagePrice;
-    float packageAmount;        // used for recipe cost
+    float packagePrice = 0;
+    float packageAmount = 0;        // used for recipe cost
 
 public:
     // constructors
@@ -28,12 +28,12 @@ public:
                float packprice = 0.0, float packamount = 0.0);
 
     // general getters
-    QString getName() const;
-    QString getMeasurementUnit() const;
-    float getUsedAmount() const;
-    float getPackagePrice() const;
-    float getPackageAmount() const;
-    float getUnitPrice() const;
+    QString getName();
+    QString getMeasurementUnit();
+    float getUsedAmount();
+    float getPackagePrice();
+    float getPackageAmount();
+    float getUnitPrice();
 
     // general setters
     void setName(QString  n);

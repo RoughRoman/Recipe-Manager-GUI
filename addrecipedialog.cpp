@@ -10,27 +10,61 @@ addRecipeDialog::addRecipeDialog(QWidget *parent) :
 
 void addRecipeDialog::on_recipeSubmitBtn_clicked()
 {
-    tempRecipe.setRecipeName(ui->recipeNameEdit->text());
-    tempRecipe.setInstructions(ui->recipeInstrucEdit->toPlainText());
+    /* This function checks if recipe name has been input and displays an appropriate
+     * message warning the user and not allowing the dialog to accept
+     * if the mandatory values are filled in then it assigns the values to a stored object and
+     * accepts and closes the dialog.*/
+
+    bool validName = false;
+    QString name = ui->recipeNameEdit->text();
+
+    // input validation
+    if (name == "" )
+    {
+       messageDialog messageD1;
+       messageD1.setMessage("Recipe name not specified.", "Warning.");
+       messageD1.exec();
+       validName = false;
+    }
+    else
+    {
+        tempRecipe.setRecipeName(ui->recipeNameEdit->text());
+        validName = true;
+    }
+
     tempRecipe.setServings(ui->recipeServingsSpin->value());
-    accept();
+    tempRecipe.setInstructions(ui->recipeInstrucEdit->toPlainText());
+
+    if (validName == true)
+    {
+       accept();
+    }
+
 
 }
 void addRecipeDialog::on_recipeCancelBtn_clicked()
 {
+    // this function rejects the dialog should the user click cancel
     reject();
 }
 
 void addRecipeDialog::on_addIngredBtn_clicked()
 {
-    // launch ingredient dialog
+    /* This function creates an ingredient dialog for user input and checks if it was accepted.
+     * if accepted the ingredient object is then fetched from the ingredient dialog and stored
+     * in the recipe object held by this dialog. */
+
+
     addIngredientDialog ingredientDialog;
+
     if ( ingredientDialog.exec() == QDialog::Accepted)
     {
         // create ingredient and add to recipe ingredient vector
         ingredient ing = ingredientDialog.getIngredient();
-        tempRecipe.ingredientList.push_back(ing);
-        ui->recipeIngredList->addItem(ing.getName());
+
+        tempRecipe.ingredientList.push_back(ing); // vector
+
+        ui->recipeIngredList->addItem(ing.getName()); // ingredient list
     }
 
 }
@@ -51,6 +85,33 @@ void addRecipeDialog::on_deleteIngredBtn_clicked()
 recipe addRecipeDialog::getRecipe()
 {
     return tempRecipe;
+}
+
+void addRecipeDialog::setName(QString name)
+{
+   ui->recipeNameEdit->setText(name);
+}
+
+void addRecipeDialog::setInstructions(QString instruc)
+{
+    ui->recipeInstrucEdit->setText(instruc);
+}
+
+void addRecipeDialog::setServings(int servs)
+{
+    ui->recipeServingsSpin->setValue(servs);
+}
+
+void addRecipeDialog::setIngredients(vector<ingredient> ingredientVec)
+{
+    if (ingredientVec.size() == 0){
+        return;
+    }
+
+    for (int i = 0 ; i < ingredientVec.size(); i++)
+    {
+        ui->recipeIngredList->addItem(ingredientVec[i].getName());
+    }
 }
 
 addRecipeDialog::~addRecipeDialog()

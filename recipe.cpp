@@ -115,9 +115,9 @@ void recipe::clearIngredients()
 // other utility functions
 float recipe::getCalcRecipePrice()
 {
-    int total = 0;
+    float total = 0;
 
-    for (int i = 0; i < (ingredientList.size() - 1); i++)
+    for (int i = 0; i < ingredientList.size(); i++)
     {
         total += ingredientList[i].getUnitPrice();
     }

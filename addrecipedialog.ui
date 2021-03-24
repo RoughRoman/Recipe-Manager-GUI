@@ -109,6 +109,12 @@
         <property name="focusPolicy">
          <enum>Qt::StrongFocus</enum>
         </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>98</number>
+        </property>
        </widget>
       </item>
       <item>

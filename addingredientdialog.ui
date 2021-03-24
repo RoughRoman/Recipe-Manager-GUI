@@ -19,7 +19,7 @@
      <x>10</x>
      <y>10</y>
      <width>321</width>
-     <height>163</height>
+     <height>174</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout">
@@ -65,6 +65,15 @@
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Multiples or precise amounts relative to the specified measurment unit. &lt;/p&gt;&lt;p&gt;E.g. 1.0, 1.5, 0.5, 100, 28 ...&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="minimum">
+         <double>1.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>9999.000000000000000</double>
+        </property>
        </widget>
       </item>
       <item>
@@ -95,6 +104,12 @@
        <widget class="QDoubleSpinBox" name="packPriceSpin">
         <property name="toolTip">
          <string>The purchased product price</string>
+        </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="maximum">
+         <double>9999.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -133,6 +148,12 @@
        <widget class="QDoubleSpinBox" name="packAmountSpin">
         <property name="toolTip">
          <string>The purchased product amount</string>
+        </property>
+        <property name="decimals">
+         <number>3</number>
+        </property>
+        <property name="maximum">
+         <double>9999.000000000000000</double>
         </property>
        </widget>
       </item>

@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <ingredient.hpp>
+#include <messagedialog.h>
 
 
 namespace Ui {
