@@ -1,8 +1,12 @@
 TO-DO:
 o adding data validation in add recipe dialog to check for space only strings
-o add edit ingredient functionality to ingredient dialog
 o fix saving to file
 o fix loading from file
+o fix print to text from crashing when nothing is selected
 o nicely format print to text
-o stress test
+o nicely format ingredient display
+o test
 
+
+
+so close matty you can do this

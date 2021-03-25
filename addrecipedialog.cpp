@@ -8,28 +8,42 @@ addRecipeDialog::addRecipeDialog(QWidget *parent) :
     ui->setupUi(this);
 }
 
+void addRecipeDialog::update()
+{
+    ui->recipeIngredList->clear();
+    for(int i = 0; i < tempRecipe.ingredientList.size(); i++)
+    {
+        ui->recipeIngredList->addItem(tempRecipe.ingredientList[i].getName());
+    }
+}
+
 void addRecipeDialog::on_editIngredBtn_clicked()
 {
     // check if anything is selected
     if (ui->recipeIngredList->selectedItems().size() != 0)
     {
         // get the position of the selected recipe
-        int recipePos = ui->recipeIngredList->currentRow();
+        int ingredPos = ui->recipeIngredList->currentRow();
 
         // create addrecipe dialog
-        addIngredientDialog ingredDialog;
+        addIngredientDialog ingredientDialog;
 
         // load current recipe details into dialog
-        ingredDialog.set
-                setName(ReciperManager1.recipeList[recipePos].getRecipeName());
-        // on accept signal replace old data with new
-        if ( recipeDialog.exec() == QDialog::Accepted)
-        {
-            recipe r1 = recipeDialog.getRecipe();
-            ReciperManager1.replaceRecipe(r1, recipePos);
+        ingredientDialog.setName(tempRecipe.ingredientList[ingredPos].getName());
+        ingredientDialog.setMeasurmentUnit(tempRecipe.ingredientList[ingredPos].getMeasurementUnit());
+        ingredientDialog.setUsedAmount(tempRecipe.ingredientList[ingredPos].getUsedAmount());
+        ingredientDialog.setPackageAmount(tempRecipe.ingredientList[ingredPos].getPackageAmount());
+        ingredientDialog.setPackagePrice(tempRecipe.ingredientList[ingredPos].getPackagePrice());
 
-            // update display
+
+        // on accept signal replace old data with new
+        if ( ingredientDialog.exec() == QDialog::Accepted)
+        {
+            ingredient ing1 = ingredientDialog.getIngredient();
+            tempRecipe.replaceIngredient( ing1, ingredPos);
             update();
+
+
         }
     }
     else
@@ -100,16 +114,23 @@ void addRecipeDialog::on_addIngredBtn_clicked()
 
 void addRecipeDialog::on_deleteIngredBtn_clicked()
 {
-    // get position of selected item
-    int pos = ui->recipeIngredList->currentRow();
+    if (ui->recipeIngredList->selectedItems().size() != 0)
+    {
+        // get position of selected item
+        int pos = ui->recipeIngredList->currentRow();
 
-    // delete from item list
-    ui->recipeIngredList->takeItem(pos);
+        // delete from item list
+        ui->recipeIngredList->takeItem(pos);
 
-    // delete from ingredient vector
-    tempRecipe.ingredientList.erase(tempRecipe.ingredientList.begin() + pos);
+        // delete from ingredient vector
+        tempRecipe.ingredientList.erase(tempRecipe.ingredientList.begin() + pos);
+        return;
+    }
+    else
+    {
+        return;
+    }
 
-    return;
 }
 recipe addRecipeDialog::getRecipe()
 {

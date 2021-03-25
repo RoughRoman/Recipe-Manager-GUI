@@ -26,6 +26,8 @@ public:
      void setServings(int servs);
      //void setRecipeCost(float cost);    #maybe not uses
 
+     void replaceIngredient(ingredient ing1, int ingPos);
+
      // General Getters
      QString getRecipeName();
      QString getInstructions();

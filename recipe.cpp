@@ -39,6 +39,11 @@ recipe::recipe(QString name, QString instruc, int servs)
     recipeCost = 0.0;
 }
 
+void recipe::replaceIngredient(ingredient ing1, int ingPos)
+{
+    ingredientList[ingPos] = ing1;
+}
+
 // General setters
 void recipe::setRecipeName(QString name)
 {

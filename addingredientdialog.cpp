@@ -75,12 +75,24 @@ void addIngredientDialog::on_ingredCancelBtn_clicked()
 
 void addIngredientDialog::setName(QString name)
 {
-    tempIngredient.setName(name);
+    ui->ingredNameEdit->setText(name);
 }
-void setMeasurmentUnit(QString measUnit);
-void setUsedAmount(float used);
-void setPackagePrice(float packprice);
-void setPackageAmount(float packamount);
+void addIngredientDialog::setMeasurmentUnit(QString measUnit)
+{
+    ui->measUnitEdit->setText(measUnit);
+}
+void  addIngredientDialog::setUsedAmount(float used)
+{
+   ui->usedAmountSpin->setValue(used);
+}
+void  addIngredientDialog::setPackagePrice(float packprice)
+{
+    ui->packPriceSpin->setValue(packprice);
+}
+void  addIngredientDialog::setPackageAmount(float packamount)
+{
+    ui->packAmountSpin->setValue(packamount);
+}
 
 addIngredientDialog::~addIngredientDialog()
 {

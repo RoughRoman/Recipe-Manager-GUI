@@ -21,6 +21,7 @@ public:
     void setName(QString name);
     void setInstructions(QString instruc);
     void setServings(int servs);
+    void update();
 
     void setIngredients(vector<ingredient> ingredientVec);
 
