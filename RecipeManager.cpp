@@ -74,7 +74,7 @@ void RecipeManager::printToText(QString recipeName)
 
     // create file named recipeName
     ofstream outfile;
-    outfile.open(recipeName.toStdString());
+    outfile.open(recipeName.toStdString()+".txt");
 
     // write data to file
     outfile<< "#########################################"<<endl;

@@ -19,6 +19,13 @@ public:
     ~addIngredientDialog();
     ingredient getIngredient();
 
+    //setters
+    void setName(QString name);
+    void setMeasurmentUnit(QString measUnit);
+    void setUsedAmount(float used);
+    void setPackagePrice(float packprice);
+    void setPackageAmount(float packamount);
+
 private:
     Ui::addIngredientDialog *ui;
     ingredient tempIngredient;

@@ -7,6 +7,7 @@ addIngredientDialog::addIngredientDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 }
+
 void addIngredientDialog::on_ingredSubmitBtn_clicked()
 {
     /* This function checks if ingredient name and measurment unit have been input and
@@ -71,6 +72,15 @@ void addIngredientDialog::on_ingredCancelBtn_clicked()
     // this function rejects the dialog should the user click cancel
     reject();
 }
+
+void addIngredientDialog::setName(QString name)
+{
+    tempIngredient.setName(name);
+}
+void setMeasurmentUnit(QString measUnit);
+void setUsedAmount(float used);
+void setPackagePrice(float packprice);
+void setPackageAmount(float packamount);
 
 addIngredientDialog::~addIngredientDialog()
 {

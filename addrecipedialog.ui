@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>370</width>
-    <height>436</height>
+    <width>395</width>
+    <height>422</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>351</width>
+     <width>375</width>
      <height>401</height>
     </rect>
    </property>
@@ -81,6 +81,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="editIngredBtn">
+        <property name="text">
+         <string>Edit Ingredient</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="deleteIngredBtn">
         <property name="focusPolicy">
          <enum>Qt::StrongFocus</enum>
@@ -114,13 +121,6 @@
         </property>
         <property name="maximum">
          <number>98</number>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_5">
-        <property name="text">
-         <string>Optional</string>
         </property>
        </widget>
       </item>
@@ -206,19 +206,6 @@
      </layout>
     </item>
    </layout>
-  </widget>
-  <widget class="QLabel" name="logLabel">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>413</y>
-     <width>47</width>
-     <height>20</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
   </widget>
  </widget>
  <tabstops>

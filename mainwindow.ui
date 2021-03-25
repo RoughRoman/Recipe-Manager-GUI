@@ -242,7 +242,7 @@
      <x>0</x>
      <y>0</y>
      <width>804</width>
-     <height>21</height>
+     <height>20</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -306,22 +306,5 @@
   </action>
  </widget>
  <resources/>
- <connections>
-  <connection>
-   <sender>deleteRecipeBtn</sender>
-   <signal>clicked()</signal>
-   <receiver>recipeListWgt</receiver>
-   <slot>clearSelection()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>292</x>
-     <y>549</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>289</x>
-     <y>447</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

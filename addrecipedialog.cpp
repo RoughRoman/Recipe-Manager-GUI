@@ -8,6 +8,35 @@ addRecipeDialog::addRecipeDialog(QWidget *parent) :
     ui->setupUi(this);
 }
 
+void addRecipeDialog::on_editIngredBtn_clicked()
+{
+    // check if anything is selected
+    if (ui->recipeIngredList->selectedItems().size() != 0)
+    {
+        // get the position of the selected recipe
+        int recipePos = ui->recipeIngredList->currentRow();
+
+        // create addrecipe dialog
+        addIngredientDialog ingredDialog;
+
+        // load current recipe details into dialog
+        ingredDialog.set
+                setName(ReciperManager1.recipeList[recipePos].getRecipeName());
+        // on accept signal replace old data with new
+        if ( recipeDialog.exec() == QDialog::Accepted)
+        {
+            recipe r1 = recipeDialog.getRecipe();
+            ReciperManager1.replaceRecipe(r1, recipePos);
+
+            // update display
+            update();
+        }
+    }
+    else
+    {
+        return;
+    }
+}
 void addRecipeDialog::on_recipeSubmitBtn_clicked()
 {
     /* This function checks if recipe name has been input and displays an appropriate

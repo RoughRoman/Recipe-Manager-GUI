@@ -6,7 +6,8 @@
 #include <addrecipedialog.h>
 #include <addingredientdialog.h>
 #include <messagedialog.h>
-#include<choicedialog.h>
+#include <choicedialog.h>
+#include <QDebug>
 
 
 QT_BEGIN_NAMESPACE
@@ -20,6 +21,9 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void update();
+
+    void log(QString msg);
 
 private:
     Ui::MainWindow *ui;
@@ -32,12 +36,14 @@ private slots:
     void on_addRecipeBtn_clicked();
     void on_deleteRecipeBtn_clicked();
     void on_editRecipeBtn_clicked();
+    void on_printRecipeBtn_clicked();
 
     // actions
     void on_loadRecipeAction_triggered();
     void on_saveRecipeListAction_triggered();
     void on_exitAction_triggered();
     void on_deleteRecipeListAction_triggered();
+
 
     // list widget
     void on_recipeListWgt_itemClicked();

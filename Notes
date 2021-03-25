@@ -1,7 +1,8 @@
-Last busy with:
-
-
 TO-DO:
 o adding data validation in add recipe dialog to check for space only strings
-o sort out display of price
+o add edit ingredient functionality to ingredient dialog
+o fix saving to file
+o fix loading from file
+o nicely format print to text
+o stress test
 

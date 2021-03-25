@@ -9,7 +9,39 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 }
+void MainWindow::log(QString msg)
+{
+    qDebug() << msg;
+}
 
+void MainWindow::update()
+{
+    // updates list widget and displays selected recipe info
+
+    // first clear recipe list widget
+    ui->recipeListWgt->clear();
+
+    // re-add all currently stored recipes by name
+    if (ReciperManager1.recipeList.size() != 0)
+    {
+        for (int i = 0; i < ReciperManager1.recipeList.size(); i++)
+        {
+            ui->recipeListWgt->addItem(ReciperManager1.recipeList[i].getRecipeName());
+        }
+    }
+
+    // clear recipe display
+    ui->nameLabel->setText(" ");
+    ui->instructionsText->setText(" ");
+    ui->costLabel->setText(" ");
+    ui->servingsLabel->setText(" ");
+    ui->ingredientNumLabel->setText(" ");
+    ui->costPerServingLabel->setText(" ");
+    ui->ingredientListWgt->clear();
+    return;
+
+
+}
 
 void MainWindow::on_addRecipeBtn_clicked()
 {
@@ -19,7 +51,7 @@ void MainWindow::on_addRecipeBtn_clicked()
     {
         recipe r1 = recipeDialog.getRecipe();
         ReciperManager1.addRecipe(r1);
-        ui->recipeListWgt->addItem(r1.getRecipeName());
+        update();
     }
 }
 
@@ -42,6 +74,7 @@ void MainWindow::on_recipeListWgt_itemClicked()
     }
     else
     {
+        ui->log->setText(QString::number(ReciperManager1.recipeList.size()));
         // get index of row of currently selected row
         int pos = ui->recipeListWgt->currentRow();
 
@@ -79,36 +112,57 @@ void MainWindow::on_recipeListWgt_itemClicked()
 
 void MainWindow::on_deleteRecipeBtn_clicked()
 {
-    // delete from widget
-    ReciperManager1.deleteRecipe(ui->recipeListWgt->currentRow());
-    ui->recipeListWgt->takeItem(ui->recipeListWgt->currentRow());
+    log(QString::number(ui->recipeListWgt->selectedItems().size()));
+    // check if anything is selected
+    if (ui->recipeListWgt->selectedItems().size() == 0)
+    {
+        log("Nothing selected");
+        return;
+    }
+    else
+    {
+        // delete from widget
+        int pos = ui->recipeListWgt->currentRow();
+
+        ReciperManager1.deleteRecipe(pos);
+        update();
+    }
 }
 
 void MainWindow::on_editRecipeBtn_clicked()
 {
-    // get the position of the selected recipe
-    int recipePos = ui->recipeListWgt->currentRow();
+    log(QString::number(ui->recipeListWgt->selectedItems().size()));
 
-    // create addrecipe dialog
-    addRecipeDialog recipeDialog;
-
-    // load current recipe details into dialog
-    recipeDialog.setName(ReciperManager1.recipeList[recipePos].getRecipeName());
-    recipeDialog.setInstructions(ReciperManager1.recipeList[recipePos].getInstructions());
-    recipeDialog.setServings(ReciperManager1.recipeList[recipePos].getServings());
-    recipeDialog.setIngredients(ReciperManager1.recipeList[recipePos].ingredientList);
-
-    // on accept signal replace old data with new
-    if ( recipeDialog.exec() == QDialog::Accepted)
+    // check if anything is selected
+    if (ui->recipeListWgt->selectedItems().size() != 0)
     {
-        recipe r1 = recipeDialog.getRecipe();
-        ReciperManager1.replaceRecipe(r1, recipePos);
+        // get the position of the selected recipe
+        int recipePos = ui->recipeListWgt->currentRow();
 
-        on_deleteRecipeBtn_clicked();
+        // create addrecipe dialog
+        addRecipeDialog recipeDialog;
 
-        // update display
-        ui->recipeListWgt->addItem(r1.getRecipeName());
+        // load current recipe details into dialog
+        recipeDialog.setName(ReciperManager1.recipeList[recipePos].getRecipeName());
+        recipeDialog.setInstructions(ReciperManager1.recipeList[recipePos].getInstructions());
+        recipeDialog.setServings(ReciperManager1.recipeList[recipePos].getServings());
+        recipeDialog.setIngredients(ReciperManager1.recipeList[recipePos].ingredientList);
+
+        // on accept signal replace old data with new
+        if ( recipeDialog.exec() == QDialog::Accepted)
+        {
+            recipe r1 = recipeDialog.getRecipe();
+            ReciperManager1.replaceRecipe(r1, recipePos);
+
+            // update display
+            update();
+        }
     }
+    else
+    {
+        return;
+    }
+
 }
 
 void MainWindow::on_loadRecipeAction_triggered()
@@ -143,6 +197,13 @@ void MainWindow::on_deleteRecipeListAction_triggered()
         return;
     }
 
+}
+
+void MainWindow::on_printRecipeBtn_clicked()
+{
+    QString name = ReciperManager1.recipeList[ui->recipeListWgt->currentRow()].getRecipeName();
+
+    ReciperManager1.printToText(name);
 }
 
 MainWindow::~MainWindow()

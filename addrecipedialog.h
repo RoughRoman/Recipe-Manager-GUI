@@ -33,6 +33,7 @@ private slots:
     void on_recipeCancelBtn_clicked();
     void on_addIngredBtn_clicked();
     void on_deleteIngredBtn_clicked();
+    void on_editIngredBtn_clicked();
 
 };
 
