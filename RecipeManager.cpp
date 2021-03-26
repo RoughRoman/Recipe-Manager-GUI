@@ -88,138 +88,84 @@ void RecipeManager::printToText(QString recipeName)
 // Save all recipes to dat file
 void RecipeManager::saveToFile()
 {
-    ofstream outfile;
-    outfile.open("recipeList.dat"); // if it was present then it would open.
-                                    // if not it wil make one
-
-    /*
-       write to the file in the specified format.
-       each recipe is on a new line so as soon as a \n is encountered we know its a new recipe
-       each variable is prefixed by {
-       so anything read from a { is a single variable.
-       ingredient list is prefixed by a [
-       ingredient data has the same { as the recipe data.
-       finally we order the data recipe data first then ingredients as follows
-       {recipename{instructions{servings[{ingredient1name{ingredient1cost etc{
-    */
-
-    for (int i; i < recipeList.size(); i++)
+    QFile outfile("Recipe List.dat");
+    if (outfile.open(QFile::WriteOnly))
     {
-        // print recipe data
-        outfile<< recipeList[i].getRecipeName().toStdString()<< "{";
-        outfile<< recipeList[i].getInstructions().toStdString()<< "{";
-        outfile<<recipeList[i].getServings()<< "{";
+        QTextStream out(&outfile);
+        for (int i = 0; i < recipeList.size(); i++)
+        {
+            out<< recipeList[i].getRecipeName()<< "{";
 
-        // start printing ingredients
-        for (int j; j < recipeList[i].ingredientList.size(); j++)
-        {// holy fuck. The guy who has to write the deserialization part is fucked
+            // strip \n out of instructions
+            QString instruct = recipeList[i].getInstructions();
+            if (instruct.contains("\n")){
+                instruct.remove("\n");
+            }
 
-            outfile<< recipeList[i].ingredientList[j].getName().toStdString()<< "{";
-            outfile<< recipeList[i].ingredientList[j].getMeasurementUnit().toStdString()<< "{";
-            outfile<< recipeList[i].ingredientList[j].getUsedAmount()<< "{";
-            outfile<< recipeList[i].ingredientList[j].getPackagePrice()<< "{";
-            outfile<< recipeList[i].ingredientList[j].getPackageAmount()<< "{";
+            out<< instruct<< "{";
+            out<< recipeList[i].getServings();
 
+            out<< "[";
+            for (int j = 0; j < recipeList[i].ingredientList.size(); j++)
+            {
+                out<< recipeList[i].ingredientList[j].getName()<< "{";
+                out<< recipeList[i].ingredientList[j].getMeasurementUnit()<< "{";
+                out<< recipeList[i].ingredientList[j].getUsedAmount()<< "{";
+                out<< recipeList[i].ingredientList[j].getPackagePrice()<< "{";
+                out<< recipeList[i].ingredientList[j].getPackageAmount()<< "{";
+            }
+            out<< "\n";
         }
-        // finished printing ingredients
-        outfile<< "\n"; // if we have issues maybe because endl flushes? idk if we need that
+        outfile.close();
+        return;
     }
-    // done?
-    outfile.close();
-    return;
+
 }
 
 // Load from dat file
 void RecipeManager::loadFromFile()
 {
-    /*
-     * embarrasingly inflexible. God forbid anyone decides to change anything.
-     * really needs a rework please anyone
-     * shitload of comments because this was challenging to write
-     *   needs clean up too.
-     * it will also overwrite any current recipe list so best have something to prevent
-     *   loading a file once anything is already in the list or atleast have a warning
-     *   in the driver program
-     */
-
-    // for recipe data
-    vector<string> recipeVec;
-    vector<string> ingredVec;
-
-    QString name;
-    QString instruct;
-
-
-    // for file processing
-    string line;
-    vector<string> lineVec;
-    ifstream infile;
-
-    infile.open("recipeList.dat"); // if it was present then it would open.
-                                   // if not it will make one
-
-    if (is_empty(infile)) // if true then file empty
+    QFile infile("Recipe List.dat");
+    if (infile.open(QFile::ReadOnly | QIODevice::Text))
     {
-        return;
-    }
-    else
-    {
-        // get all of the lines from the file and store in local vector
-        while((getline (infile, line)))
-        {
-            lineVec.push_back(line);
-        }
-        infile.close();
+      QTextStream in(&infile);
+      while (!infile.atEnd())
+      {
+          // get a line and split it into recipe and ingredient data
+          QString fullLine = infile.readLine();
+          QStringList splitList = fullLine.split("[");
+          QString recipeString = splitList[0];
+          QString ingredientString = splitList[1];
 
-        // time to process each line into a recipe object
-        for (int i; i < lineVec.size(); i++)
-        {
-            // get individual line
-            line = lineVec[i];
+          // strip \n
+          ingredientString.remove("\n");
 
-            /*          How i am going to do this.
-             * find the position of the first occurence of {
-             * everything until next { we store
-             * delete { and the data until next {
-             * start again.
-             * after first 3 runs create a recipe with the data
-             * then repeat process for ingredients
-             */
+          // futher split each into individual variables
+          QStringList recipeData = recipeString.split("{");
+          QStringList ingredientData = ingredientString.split("{",Qt::SkipEmptyParts);
 
-            for (int j; j < 3; j++)
-            {
-                // add the inbetween data to the vector
-                recipeVec.push_back(line.substr(0,line.find('{')));
+          // create objects
+          recipe tempRecipe;
+          tempRecipe.setRecipeName(recipeData[0]);
+          tempRecipe.setInstructions(recipeData[1]);
+          tempRecipe.setServings(recipeData[2].toInt());
 
-                // delete everything including delimiter
-                line.erase(0, line.find('{') + 1);
-            }
-            // create recipe from vector data
-            //QString name = fromStdString(recipeVec[0]);
-            //QString instruct = fromStdString(recipeVec[1]);
+          for (int i = 0; i < ingredientData.size(); i= i+5)
+          {
+              ingredient tempIngredient;
+              tempIngredient.setName(ingredientData[i]);
+              tempIngredient.setMeasurmentUnit(ingredientData[i+1]);
+              tempIngredient.setUsedAmount(ingredientData[i+2].toFloat());
+              tempIngredient.setPackagePrice(ingredientData[i+3].toFloat());
+              tempIngredient.setPackageAmount(ingredientData[i+4].toFloat());
 
-            addRecipe(name, instruct, stoi(recipeVec[2]));
+              tempRecipe.ingredientList.push_back(tempIngredient);
 
-            // next ingredients
-            while (line[0] != '\n')
-            {
-                // add the inbetween data to the vector
-                ingredVec.push_back(line.substr(0, line.find('{')));
+          }
 
-                //erase
-                line.erase(0,line.find('{')+1);
-            }
-
-            // got all the ingredients now we add them as to the recipe we have just made
-            for (int k; k < ingredVec.size(); k = k+5)
-            {
-                //recipeList[i].addFullIngredient(ingredVec[k], ingredVec[k+1],
-                                                //stof(ingredVec[k+2]), stof(ingredVec[k+3]),
-                                              //  stof(ingredVec[k+4]));
-            }
-
-        }
-        return;
+          // store objects
+          recipeList.push_back(tempRecipe);
+      }
     }
 }
 

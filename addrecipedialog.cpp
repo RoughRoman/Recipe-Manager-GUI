@@ -13,7 +13,13 @@ void addRecipeDialog::update()
     ui->recipeIngredList->clear();
     for(int i = 0; i < tempRecipe.ingredientList.size(); i++)
     {
-        ui->recipeIngredList->addItem(tempRecipe.ingredientList[i].getName());
+        QString name = tempRecipe.ingredientList[i].getName();
+        QString unit = tempRecipe.ingredientList[i].getMeasurementUnit();
+        QString used = QString::number(tempRecipe.ingredientList[i].getUsedAmount());
+        QString Pprice = QString::number(tempRecipe.ingredientList[i].getPackagePrice());
+        QString Pamount = QString::number(tempRecipe.ingredientList[i].getPackageAmount());
+
+        ui->recipeIngredList->addItem("o "+used+" "+unit+" "+name);
     }
 }
 
@@ -107,7 +113,7 @@ void addRecipeDialog::on_addIngredBtn_clicked()
 
         tempRecipe.ingredientList.push_back(ing); // vector
 
-        ui->recipeIngredList->addItem(ing.getName()); // ingredient list
+        update(); // ingredient list
     }
 
 }
@@ -124,7 +130,7 @@ void addRecipeDialog::on_deleteIngredBtn_clicked()
 
         // delete from ingredient vector
         tempRecipe.ingredientList.erase(tempRecipe.ingredientList.begin() + pos);
-        return;
+        update();
     }
     else
     {
@@ -158,10 +164,8 @@ void addRecipeDialog::setIngredients(vector<ingredient> ingredientVec)
         return;
     }
 
-    for (int i = 0 ; i < ingredientVec.size(); i++)
-    {
-        ui->recipeIngredList->addItem(ingredientVec[i].getName());
-    }
+    tempRecipe.ingredientList = ingredientVec;
+    update();
 }
 
 addRecipeDialog::~addRecipeDialog()

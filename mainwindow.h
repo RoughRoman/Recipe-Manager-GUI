@@ -8,6 +8,7 @@
 #include <messagedialog.h>
 #include <choicedialog.h>
 #include <QDebug>
+#include <QTimer>
 
 
 QT_BEGIN_NAMESPACE
@@ -23,6 +24,7 @@ public:
     ~MainWindow();
     void update();
 
+
     void log(QString msg);
 
 private:
@@ -32,6 +34,7 @@ private:
 
 
 private slots:
+    void debug();
     // buttons
     void on_addRecipeBtn_clicked();
     void on_deleteRecipeBtn_clicked();

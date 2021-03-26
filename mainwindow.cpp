@@ -8,16 +8,27 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(debug()));
+    timer->start(500);
 }
 void MainWindow::log(QString msg)
 {
     qDebug() << msg;
 }
 
+void MainWindow::debug()
+{
+    QString vecSize = QString::number(ReciperManager1.recipeList.size());
+    QString listSize = QString::number(ui->recipeListWgt->count());
+
+    log("Vector Size :"+vecSize);
+    log("listSize :"+listSize);
+}
 void MainWindow::update()
 {
     // updates list widget and displays selected recipe info
-
+    log("Update");
     // first clear recipe list widget
     ui->recipeListWgt->clear();
 
@@ -45,6 +56,7 @@ void MainWindow::update()
 
 void MainWindow::on_addRecipeBtn_clicked()
 {
+    log("Add recipe");
     addRecipeDialog recipeDialog;
 
     if ( recipeDialog.exec() == QDialog::Accepted)
@@ -53,6 +65,7 @@ void MainWindow::on_addRecipeBtn_clicked()
         ReciperManager1.addRecipe(r1);
         update();
     }
+
 }
 
 void MainWindow::on_recipeListWgt_itemClicked()
@@ -74,7 +87,7 @@ void MainWindow::on_recipeListWgt_itemClicked()
     }
     else
     {
-        ui->log->setText(QString::number(ReciperManager1.recipeList.size()));
+
         // get index of row of currently selected row
         int pos = ui->recipeListWgt->currentRow();
 
@@ -104,7 +117,11 @@ void MainWindow::on_recipeListWgt_itemClicked()
         ui->ingredientListWgt->clear();
         for (int i = 0; i < ReciperManager1.recipeList[pos].ingredientList.size(); i++)
         {
-            ui->ingredientListWgt->addItem(ReciperManager1.recipeList[pos].ingredientList[i].getName());
+            QString ingredName = ReciperManager1.recipeList[pos].ingredientList[i].getName();
+            QString ingredUnit = ReciperManager1.recipeList[pos].ingredientList[i].getMeasurementUnit();
+            QString ingredUsed = QString::number(ReciperManager1.recipeList[pos].ingredientList[i].getUsedAmount(),'g', 3);
+
+            ui->ingredientListWgt->addItem("o "+ingredUsed+" "+ingredUnit+" "+ingredName);
         }
         return;
     }
@@ -168,6 +185,7 @@ void MainWindow::on_editRecipeBtn_clicked()
 void MainWindow::on_loadRecipeAction_triggered()
 {
    ReciperManager1.loadFromFile();
+   update();
 }
 
 void MainWindow::on_saveRecipeListAction_triggered()
@@ -191,6 +209,7 @@ void MainWindow::on_deleteRecipeListAction_triggered()
     {
         ReciperManager1.deleteAllRecipes();
         ui->recipeListWgt->clear();
+        update();
     }
     else
     {
@@ -201,9 +220,14 @@ void MainWindow::on_deleteRecipeListAction_triggered()
 
 void MainWindow::on_printRecipeBtn_clicked()
 {
-    QString name = ReciperManager1.recipeList[ui->recipeListWgt->currentRow()].getRecipeName();
+    // check if anything is selected
+    if (ui->recipeListWgt->selectedItems().size() != 0)
+    {
+        QString name = ReciperManager1.recipeList[ui->recipeListWgt->currentRow()].getRecipeName();
 
-    ReciperManager1.printToText(name);
+        ReciperManager1.printToText(name);
+    }
+    return;
 }
 
 MainWindow::~MainWindow()

@@ -13,6 +13,8 @@
 #include <vector>
 #include <iostream>
 #include <QString>
+#include <QFile>
+#include <QTextStream>
 #include <fstream>
 #include "recipe.hpp"
 
