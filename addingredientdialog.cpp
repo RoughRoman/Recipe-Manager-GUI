@@ -44,6 +44,11 @@ void addIngredientDialog::on_ingredSubmitBtn_clicked()
         validUnit = true;
     }
 
+    if (ui->packAmountSpin->value() == 0 || ui->packPriceSpin->value() == 0)
+    {
+        ui->packAmountSpin->setValue(0.0);
+        ui->packPriceSpin->setValue(0.0);
+    }
 
     tempIngredient.setUsedAmount(ui->usedAmountSpin->value());
     tempIngredient.setPackageAmount(ui->packAmountSpin->value());

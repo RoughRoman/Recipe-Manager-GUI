@@ -72,17 +72,27 @@ void RecipeManager::printToText(QString recipeName)
     int servings = recipeList[recipePosition].getServings();
     float cost = recipeList[recipePosition].getRecipeCost();
 
-    // create file named recipeName
-    ofstream outfile;
-    outfile.open(recipeName.toStdString()+".txt");
+    QFile outfile(name+".txt");
+    if (outfile.open(QFile::WriteOnly))
+    {
+        QTextStream out(&outfile);
+        out<< "Recipe Name :"<< name<< Qt::endl;
+        out<< "Servings :"<< servings<< Qt::endl;
+        out<< "Cost :"<< cost<< Qt::endl;
+        out<< "# Instructions #"<< "\n"<< instructions<<Qt::endl;
 
-    // write data to file
-    outfile<< "#########################################"<<endl;
-    outfile<< name.toStdString()<<endl<< instructions.toStdString()<<endl<< ingredientNum<<endl<< servings<<endl<<cost;
+        out<< "# Ingredients "<< ingredientNum<< "#";
+        for (int i = 0; i < ingredientNum; i++)
+        {
+            ingredient tempIngredient = recipeList[recipePosition].ingredientList[i];
+            out<< tempIngredient.getUsedAmount()<<" "<< tempIngredient.getMeasurementUnit()<<" "<< tempIngredient.getName();
+        }
 
-
-    // file stream
+    }
     outfile.close();
+    return;
+
+
 }
 
 // Save all recipes to dat file
@@ -166,6 +176,8 @@ void RecipeManager::loadFromFile()
           // store objects
           recipeList.push_back(tempRecipe);
       }
+      infile.close();
+      return;
     }
 }
 

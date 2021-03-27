@@ -72,7 +72,7 @@ float ingredient::getUsedAmount()
 
 float ingredient::getPackagePrice()
 {// returns package price
-    return usedAmount;
+    return packagePrice;
 }
 
 float ingredient::getPackageAmount()
