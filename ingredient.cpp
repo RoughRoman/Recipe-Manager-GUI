@@ -1,27 +1,6 @@
-/*
-#Over view#
-    This class should be used as a abstract data type inside a recipe container class
-    However. It is simple enough to be used anyhow.
-    Yes this is lots of documentation just because that's good practice.
-
-#Additional notes#
-    packagePrice and packageAmount refer to the product as you got it on the shelf.
-    This information can be used to calculate recipe cost
-
-#What needs to be done# (remove once done)
-    o Testing
-
-#Changelog#
-    28/02/2021- Declared class/default and parameter constructors/member variables.
-                Implemented getters. Poorly implemented setters.- Matty
-    01/03/2021- Added namespace std for QString usage. Bug fixes; dont program while high.
-    02/03/2021- Implemented constructors, Data checking and defaulting, header file made.
-
-*/
 #include "ingredient.hpp"
 
-using namespace std; // Doing this is bad but its fine because we arent
-                     // using any other namespace anyway.
+using namespace std;
 
 ingredient::ingredient()
 {// default constructor sets all variables to default values
